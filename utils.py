@@ -79,6 +79,7 @@ def export_all_data_button():
         "suppliers", "materials", "supplier_quotes", "products",
         "bom", "routing", "direct_costs", "indirect_costs", "labor_machine_hours",
         "customers", "contracts", "orders", "warehouse_tx",
+        "qc_inbound", "qc_outbound",
     ]
     sheets = {t: read_table(t) for t in tables}
     export_excel_button(sheets, "sht_pbg_full_export.xlsx", "📥 Xuất TOÀN BỘ dữ liệu (Excel)")

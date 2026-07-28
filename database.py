@@ -178,6 +178,37 @@ def init_db():
             note TEXT,
             FOREIGN KEY(material_id) REFERENCES materials(id)
         );
+
+        CREATE TABLE IF NOT EXISTS qc_inbound (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            material_id INTEGER NOT NULL,
+            supplier_id INTEGER,
+            lot_no TEXT,
+            received_qty REAL DEFAULT 0,
+            sample_size INTEGER DEFAULT 0,
+            defects_found INTEGER DEFAULT 0,
+            result TEXT DEFAULT 'Đạt',
+            inspector TEXT,
+            approver TEXT,
+            inspected_at TEXT,
+            FOREIGN KEY(material_id) REFERENCES materials(id),
+            FOREIGN KEY(supplier_id) REFERENCES suppliers(id)
+        );
+
+        CREATE TABLE IF NOT EXISTS qc_outbound (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            order_id INTEGER,
+            check_date TEXT,
+            servings_checked REAL DEFAULT 0,
+            temp_check TEXT DEFAULT 'Đạt',
+            portion_check TEXT DEFAULT 'Đạt',
+            packaging_check TEXT DEFAULT 'Đạt',
+            label_check TEXT DEFAULT 'Đạt',
+            inspector TEXT,
+            approver TEXT,
+            overall_result TEXT DEFAULT 'Đạt',
+            FOREIGN KEY(order_id) REFERENCES orders(id)
+        );
         """
     )
     conn.commit()
